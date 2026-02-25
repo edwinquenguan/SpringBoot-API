@@ -32,6 +32,7 @@ class UsersRepository {
     fun createUser(user: User): Int {
         val sql = """
             INSERT INTO USERS(
+            rol_id,
             user_name,
             user_first_surname,
             user_second_surname,
@@ -39,11 +40,13 @@ class UsersRepository {
             user_email,
             user_password,
             user_address,
-            user_city,
-            user_date
+            user_city)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
         """.trimIndent()
+
         return jdbcTemplate.update(
             sql,
+            user.rol_id,
             user.user_name,
             user.user_first_surname,
             user.user_second_surname,
