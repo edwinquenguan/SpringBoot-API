@@ -11,6 +11,6 @@ data class User (
     var user_password: String,
     var user_address: String,
     var user_city: String,
-    var user_date: String
+    var user_date: String? = null
 ) {
 }
