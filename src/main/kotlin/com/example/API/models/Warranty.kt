@@ -1,7 +1,7 @@
 package com.example.API.models
 
 data class Warranty(
-    var waranty_incidents_id: Int? = null,
+    var warranty_incidents_id: Int? = null,
     var product_serial: String,
     var warranty_customer:String,
     var warranty_phone: String,

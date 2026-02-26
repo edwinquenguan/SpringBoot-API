@@ -47,7 +47,7 @@ class WarrantiesRepository {
 
         return jdbcTemplate.update(
             sql,
-            warranty.waranty_incidents_id,
+            warranty.warranty_incidents_id,
             warranty.product_serial,
             warranty.warranty_customer,
             warranty.warranty_phone,
@@ -75,7 +75,7 @@ class WarrantiesRepository {
         """.trimIndent()
         return jdbcTemplate.update(
             sql,
-            warranty.waranty_incidents_id,
+            warranty.warranty_incidents_id,
             warranty.product_serial,
             warranty.warranty_customer,
             warranty.warranty_phone,
@@ -90,7 +90,7 @@ class WarrantiesRepository {
     }
     fun deleteWarranty(id: Int): Int{
         val sql = """
-            DELETE FROM WARRANTY INCIDENTS WHERE waranty_incidents_id=?
+            DELETE FROM WARRANTY INCIDENTS WHERE warranty_incidents_id=?
         """.trimIndent()
         return jdbcTemplate.update(sql, id)
     }
