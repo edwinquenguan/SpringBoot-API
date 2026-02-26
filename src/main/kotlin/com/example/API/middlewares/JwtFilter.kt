@@ -10,6 +10,9 @@ class JwtFilter (
 )
 {
     fun requireRole(token: String, requiredRole: String) : ResponseEntity<Any>? {
+        if (token == null) {
+            return ResponseEntity.status(401).body("Se necesita un token para ingresar")
+        }
 
         val cleantoken = token.substring(7)
 
@@ -19,7 +22,7 @@ class JwtFilter (
 
         val role = security.getRoleFromToken(cleantoken)
 
-        if (role != null) {
+        if (role != requiredRole) {
             return ResponseEntity.status(403).body("No autorizado")
         }
 
