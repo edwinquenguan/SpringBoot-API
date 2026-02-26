@@ -59,4 +59,39 @@ class WarrantiesRepository {
             warranty.warranty_status
           )
     }
+    fun updateWarranty(warranty: Warranty, id: Int): Int{
+        val sql="""
+            UPDATE WARRANTY_INCIDENTS SET
+             product_serial = ?,
+              warranty_customer = ? ,
+              warranty_phone = ?,
+              warranty_address = ?,
+              warranty_description = ?,
+              warranty_link_attachments = ?,
+              warranty_city = ?,
+              warranty_date = ?,
+              warranty_status = ?
+              )
+        """.trimIndent()
+        return jdbcTemplate.update(
+            sql,
+            warranty.waranty_incidents_id,
+            warranty.product_serial,
+            warranty.warranty_customer,
+            warranty.warranty_phone,
+            warranty.warranty_address,
+            warranty.warranty_description,
+            warranty.warranty_link_attachments,
+            warranty.warranty_city,
+            warranty.warranty_data,
+            warranty.warranty_status
+        )
+
+    }
+    fun deleteWarranty(id: Int): Int{
+        val sql = """
+            DELETE FROM WARRANTY INCIDENTS WHERE waranty_incidents_id=?
+        """.trimIndent()
+        return jdbcTemplate.update(sql, id)
+    }
 }

@@ -120,6 +120,7 @@ class UsersRepository {
             WHERE user_id = ?
         """.trimIndent()
 
-        return jdbcTemplate.update(sql, id)
+        return jdbcTemplate.update(sql,
+            id)
     }
 }
