@@ -18,7 +18,6 @@ class Security(
     @Value("\${jwt.secret}") private val secretKey: String,
 ) {
 
-    @Autowired
     var key = Keys.hmacShaKeyFor(secretKey.toByteArray())
 
     fun verifyPassword(auth: Auth, password: String) : Map<String, Any> {
