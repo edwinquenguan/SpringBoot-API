@@ -28,4 +28,35 @@ class WarrantiesRepository {
         }
       )
     }
+
+    fun createWarranty(warranty: Warranty): Int{
+        val sql = """
+            INSERT INTO WARRANTY_INCIDENTS(
+             warranty_incidents_id ,
+              product_serial,
+              warranty_customer ,
+              warranty_phone ,
+              warranty_address ,
+              warranty_description ,
+              warranty_link_attachments,
+              warranty_city,
+              warranty_date,
+              warranty_status)
+              VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+        """.trimIndent()
+
+        return jdbcTemplate.update(
+            sql,
+            warranty.waranty_incidents_id,
+            warranty.product_serial,
+            warranty.warranty_customer,
+            warranty.warranty_phone,
+            warranty.warranty_address,
+            warranty.warranty_description,
+            warranty.warranty_link_attachments,
+            warranty.warranty_city,
+            warranty.warranty_data,
+            warranty.warranty_status
+          )
+    }
 }
