@@ -1,5 +1,6 @@
 package com.example.API.repositories
 
+import com.example.API.models.Auth
 import com.example.API.models.User
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.jdbc.core.JdbcTemplate
@@ -14,7 +15,7 @@ class UsersRepository {
     fun getUsers(): List<User> {
         return jdbcTemplate.query("SELECT * FROM USERS", RowMapper<User> {rs, _ ->
             User(
-                rs.getInt("user_id"),
+                rs.getInt("rol_id"),
                 rs.getInt("user_id"),
                 rs.getString("user_name"),
                 rs.getString("user_first_surname"),
@@ -27,6 +28,33 @@ class UsersRepository {
                 rs.getString("user_date"),
             )
         })
+    }
+
+    fun getUserByEmail(email: String): List<Auth> {
+        val sql = """
+            SELECT
+                r.rol_name,
+                u.user_id,
+                u.user_email,
+                u.user_password
+            FROM USERS as u
+            INNER JOIN ROLES as r
+            ON u.rol_id = r.rol_id
+            WHERE u.user_email = ?
+        """.trimIndent()
+
+        return jdbcTemplate.query(
+            sql,
+            RowMapper { rs, _ ->
+                Auth(
+                    rs.getString("rol_name"),
+                    rs.getInt("user_id"),
+                    rs.getString("user_email"),
+                    rs.getString("user_password")
+                )
+            },
+            email
+        )
     }
 
     fun createUser(user: User): Int {
@@ -92,6 +120,7 @@ class UsersRepository {
             WHERE user_id = ?
         """.trimIndent()
 
-        return jdbcTemplate.update(sql, id)
+        return jdbcTemplate.update(sql,
+            id)
     }
 }
