@@ -1,6 +1,6 @@
 package com.example.API.controllers
 
-import com.example.API.models.Product
+import com.example.API.models.Products
 import com.example.API.repositories.ProductsRepository
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.web.bind.annotation.DeleteMapping
@@ -17,16 +17,16 @@ class ProductsController {
     lateinit var productsRepository: ProductsRepository
 
     @GetMapping("/products")
-    fun getProduts(): List<Product> {
+    fun getProducts(): List<Products> {
         return productsRepository.getProducts()
     }
 
     @PostMapping("/products")
-    fun createProducts(@RequestBody product: Product): Map<String, Any>{
+    fun createProducts(@RequestBody products: Products): Map<String, Any>{
 
-        val createdProduct = productsRepository.createProduct(product)
+        val createdProducts = productsRepository.createProducts(products)
 
-        return if (createdProduct > 0 ) {
+        return if (createdProducts > 0 ) {
             mapOf(
                 "success" to true,
                 "message" to "Producto creado correctamente"
@@ -40,10 +40,10 @@ class ProductsController {
     }
 
     @PutMapping("/products/{id}")
-    fun updateUser(@RequestBody product: Product, @PathVariable id: Int): Map<String, Any>{
-        val updatedProduct = productRepository.updateProduct(product, id)
+    fun updateProducts(@RequestBody products: Products, @PathVariable id: Int): Map<String, Any>{
+        val updatedProducts = productsRepository.updateProducts(products, id)
 
-        return if (updatedProduct > 0){
+        return if (updatedProducts > 0){
             mapOf(
                 "success" to true,
                 "message" to "Producto actualizado correctamente"
@@ -57,10 +57,10 @@ class ProductsController {
     }
 
     @DeleteMapping("/products/{id}")
-    fun deleteProduct(@PathVariable id: Int): Map<String, Any>{
-        val deleteProduct = productRepository.deleteProduct(id)
+    fun deleteProducts(@PathVariable id: Int): Map<String, Any>{
+        val deleteProducts = productsRepository.deleteProducts(id)
 
-        return if (deleteProduct > 0){
+        return if (deleteProducts > 0){
             mapOf(
                 "success" to true,
                 "message" to "Producto eliminado correctamente"
